@@ -1,0 +1,26 @@
+<div class="admin-content user-section">
+    <h2 class="admin-section-title">Quản lý người dùng</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên đăng nhập</th>
+                <th>Vai trò</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <div class="user-action-buttons">
+                        <button>Sửa</button>
+                        <button>Xóa</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

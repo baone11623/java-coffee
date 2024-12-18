@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<style>
+.admin_section {
+	margin: 20px;
+	padding: 20px;
+	background-color: var(--white);
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin_section h2 {
+	color: var(--black);
+	margin-bottom: 15px;
+}
+
+.admin_section table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.admin_section table th, .admin_section table td {
+	padding: 10px;
+	text-align: left;
+	border: 1px solid var(--primary1);
+}
+
+.admin_section table th {
+	background-color: var(--btnColor);
+	color: var(--white);
+}
+
+.admin_section table tr:nth-child(even) {
+	background-color: var(--primary1);
+}
+</style>
+</head>
+<body>
+	<section class="admin_section">
+		<div class="container">
+			<h2>Quản lý Đơn Hàng</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Tên khách hàng</th>
+						<th>Sản phẩm</th>
+						<th>Số lượng</th>
+						<th>Giá</th>
+						<th>Ngày đặt</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="order : ${orders}">
+						<td th:text="${order.id}"></td>
+						<td th:text="${order.username}"></td>
+						<td th:text="${order.productName}"></td>
+						<td th:text="${order.quantity}"></td>
+						<td th:text="${order.price}"></td>
+						<td th:text="${order.formattedDate}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</body>
+</html>

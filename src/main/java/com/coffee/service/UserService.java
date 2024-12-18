@@ -8,24 +8,23 @@ import com.coffee.repository.UserRepository;
 
 @Service
 public class UserService {
-	 	@Autowired
-	    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-	    public User findByUsername(String username) {
-	        return userRepository.findAll().stream()
-	                .filter(user -> user.getUsername().equals(username))
-	                .findFirst()
-	                .orElse(null);
-	    }
+	public User findByUsername(String username) {
+		return userRepository.findAll().stream().filter(user -> user.getUsername().equals(username)).findFirst()
+				.orElse(null);
+	}
 
-	    public boolean authenticate(String username, String password) {
-	    	String usernameTrim = username.trim();
-	    	String passwordTrim = password.trim();
-	        User user = findByUsername(usernameTrim);
-	        return user != null && user.getPassword().equals(passwordTrim);
-	    }
+	public boolean authenticate(String username, String password) {
+		String usernameTrim = username.trim();
+		String passwordTrim = password.trim();
+		User user = findByUsername(usernameTrim);
 
-	    public User save(User user) {
-	        return userRepository.save(user);
-	    }
+		return user != null && usernameTrim.equals(user.getUsername()) && passwordTrim.equals(user.getPassword());
+	}
+
+	public User save(User user) {
+		return userRepository.save(user);
+	}
 }

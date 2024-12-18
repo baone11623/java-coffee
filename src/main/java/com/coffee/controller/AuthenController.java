@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.coffee.model.User;
 import com.coffee.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,14 +24,18 @@ public class AuthenController {
 	public UserService userService;
 
 	@PostMapping("/login")
-	public String handleLogin(@RequestParam String username, @RequestParam String password, Model model,
-			HttpSession session) {
-		if (userService.authenticate(username, password)) {
-			session.setAttribute("username", username);
+	public String handleLogin(@RequestParam String username, @RequestParam String password, HttpSession session,
+			RedirectAttributes redirectAttributes) {
+		User user = userService.findByUsername(username.trim());
+		if (user != null && userService.authenticate(username, password)) {
+			session.setAttribute("currentUser", user);
+			if ("admin".equals(user.getRole())) {
+				return "redirect:/admin/dashboard";
+			}
 			return "redirect:/home";
 		} else {
-			model.addAttribute("error", "Invalid username or password");
-			return "login";
+			redirectAttributes.addFlashAttribute("error", "Sai thông tin đăng nhập!");
+			return "redirect:/login";
 		}
 	}
 

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+
+<style>
+:root {
+    --primary1: #e8f0ee;
+    --btnColor: #356e7f;
+}
+
+.admin-header {
+    background-color: var(--primary1);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #c2d4d1;
+}
+
+.admin-header h1 {
+    font-size: 24px;
+    color: var(--btnColor);
+    margin: 0;
+}
+
+.admin-header a {
+    text-decoration: none;
+    color: var(--btnColor);
+    font-weight: bold;
+    padding: 10px 15px;
+    border: 2px solid var(--btnColor);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.admin-header a:hover {
+    background-color: var(--btnColor);
+    color: var(--primary1);
+}
+
+.admin-menu {
+    background-color: #f3f8f6;
+    padding: 15px;
+    border-top: 2px solid #c2d4d1;
+}
+
+.admin-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Sắp xếp các phần tử theo chiều ngang */
+    gap: 20px; /* Khoảng cách giữa các mục menu */
+}
+
+.admin-menu ul li a {
+    text-decoration: none;
+    color: var(--btnColor);
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.admin-menu ul li a:hover {
+    background-color: var(--btnColor);
+    color: var(--primary1);
+}
+
+.admin-content {
+    margin: 20px;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    background-color: var(--white);
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid var(--primary1);
+}
+
+table th {
+    background-color: var(--btnColor);
+    color: var(--white);
+}
+
+table tr:nth-child(even) {
+    background-color: var(--primary1);
+}
+</style>
+
+<body>
+    <div class="admin-header">
+        <h1>Admin Dashboard</h1>
+        <a href="/logout">Đăng xuất</a>
+    </div>
+    <div class="admin-menu">
+        <ul>
+            <li><a href="/admin/statistics">Thống Kê</a></li>
+            <li><a href="/admin/products">Quản Lý Món</a></li>
+            <li><a href="/admin/orders">Quản Lý Đơn Hàng</a></li>
+            <li><a href="/admin/users">Quản Lý Người Dùng</a></li>
+        </ul>
+    </div>
+    <div class="admin-content">
+        <div th:insert="${content}"></div>
+    </div>
+</body>
+</html>
