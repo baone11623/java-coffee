@@ -1,0 +1,89 @@
+<html>
+<style>
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Primary button (Thêm sản phẩm) */
+.btn-primary {
+    background-color: #356e7f;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #2b5b6a;
+    color: #e8f0ee;
+}
+
+/* Warning button (Sửa) */
+.btn-warning {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background-color: #ec971f;
+    color: #fff;
+}
+
+/* Danger button (Xóa) */
+.btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+    color: #fff;
+}
+</style>
+
+
+
+
+<section>
+    <h1>Quản lý Sản phẩm</h1>
+    <a href="/admin/products/add" class="btn btn-primary">Thêm sản phẩm</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Giá</th>
+                <th>Danh mục</th>
+                <th>Ảnh</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.category}"></td>
+                <td>
+                    <img th:src="${product.imageUrl}" alt="Product Image" style="width: 100px; height: auto;">
+                </td>
+                <td>
+                    <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn btn-warning">Sửa</a>
+                    <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" class="btn btn-danger"
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</html>
