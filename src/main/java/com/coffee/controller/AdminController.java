@@ -98,13 +98,7 @@ public class AdminController {
 		return "redirect:/admin/products";
 	}
 
-	@GetMapping("/users")
-	public String manageUsers(Model model) {
-//        model.addAttribute("users", UserService.getAllUsers());
-		model.addAttribute("content", "admin/users");
-		return "admin/admin_layout";
-	}
-
+	
 	@GetMapping("/orders")
 	public String manageOrders(Model model) {
 		List<Order> orders = orderService.getAllOrders();
@@ -119,5 +113,40 @@ public class AdminController {
 		model.addAttribute("orders", orders);
 		model.addAttribute("content", "admin/orders");
 		return "admin/admin_layout";
+	}
+	@GetMapping("/users")
+	public String manageUsers(Model model) {
+	    model.addAttribute("users", userService.getAllUsers()); // Lấy danh sách người dùng
+		model.addAttribute("content", "admin/users");
+		return "admin/admin_layout";
+	}
+	@GetMapping("/users/edit/{id}")
+	public String showEditUserForm(@PathVariable Long id, Model model) {
+	    User user = userService.getUserById(id); 
+	    if (user == null) {
+	        return "redirect:/admin/users";
+	    }
+	    model.addAttribute("user", user);
+	    model.addAttribute("content", "admin/user_form");
+	    return "admin/admin_layout";
+	}
+	@PostMapping("/users/edit")
+	public String editUser(@ModelAttribute User user) {
+	    // Kiểm tra nếu mật khẩu trống, giữ mật khẩu cũ
+	    if (user.getPassword() == null || user.getPassword().isEmpty()) {
+	        User existingUser = userService.getUserById(user.getId());
+	        if (existingUser != null) {
+	            user.setPassword(existingUser.getPassword());  // Giữ mật khẩu cũ
+	        }
+	    }
+	    userService.save(user); 
+	    return "redirect:/admin/users";
+	}
+
+
+	@GetMapping("/users/delete/{id}")
+	public String deleteUser(@PathVariable Long id) {
+	    userService.deleteUser(id); 
+	    return "redirect:/admin/users";
 	}
 }

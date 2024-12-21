@@ -19,7 +19,7 @@ import com.coffee.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 	@Autowired
 	public MenuService menuService; 
@@ -39,7 +39,7 @@ public class ProductController {
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         
-		return "product";
+		return "products";
 	}
 
 	    @GetMapping("/{id}")

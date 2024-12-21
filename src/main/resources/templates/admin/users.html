@@ -1,26 +1,102 @@
-<div class="admin-content user-section">
-    <h2 class="admin-section-title">Quản lý người dùng</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên đăng nhập</th>
-                <th>Vai trò</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.role}"></td>
-                <td>
-                    <div class="user-action-buttons">
-                        <button>Sửa</button>
-                        <button>Xóa</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản lý Người Dùng</title>
+    <style>
+        .admin-content {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-section-title {
+            color: #356e7f;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #356e7f;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #da190b;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-content user-section">
+        <h2 class="admin-section-title">Quản lý Người Dùng</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Đăng Nhập</th>
+                    <th>Vai Trò</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                        <a th:href="@{/admin/users/edit/{id}(id=${user.id})}" class="btn btn-primary">Sửa</a>
+                        <a th:href="@{/admin/users/delete/{id}(id=${user.id})}" 
+                           class="btn btn-danger" 
+                           onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?');">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

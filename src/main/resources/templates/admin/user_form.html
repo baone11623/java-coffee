@@ -1,0 +1,24 @@
+<div class="admin-content">
+    <h2 class="admin-section-title">Chỉnh sửa người dùng</h2>
+    <form action="/admin/users/edit" method="post">
+        <input type="hidden" name="id" th:value="${user.id}" />
+        
+        <div>
+            <label for="username">Tên đăng nhập:</label>
+            <input type="text" id="username" name="username" th:value="${user.username}" required />
+        </div>
+
+        <!-- Không cho phép thay đổi mật khẩu, giữ lại thông tin mật khẩu cũ trong cơ sở dữ liệu -->
+        <input type="hidden" name="password" th:value="${user.password}" />
+
+        <div>
+            <label for="role">Vai trò:</label>
+            <select id="role" name="role">
+                <option value="admin" th:selected="${user.role == 'admin'}">Admin</option>
+                <option value="user" th:selected="${user.role == 'user'}">User</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu</button>
+    </form>
+</div>
