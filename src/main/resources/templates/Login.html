@@ -106,7 +106,6 @@ body, html {
 	border-radius: 5px;
 	font-size: 14px;
 	color: #fff;
-	background-color: #4caf50;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	opacity: 0;
 	transform: translateY(-20px);
@@ -123,20 +122,30 @@ body, html {
 }
 
 .toast-error {
-	background-color: #dc3545;
+	background-color: #f44336;
 }
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const toast = document.getElementById("toast-message");
-        if (toast) {
-            toast.classList.add("show");
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 3000); 
-        }
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    // Hiển thị toast thành công nếu có
+    const toastMessage = document.getElementById("toast-message");
+    if (toastMessage) {
+        toastMessage.classList.add("show");
+        setTimeout(() => {
+            toastMessage.classList.remove("show");
+        }, 3000);
+    }
+
+    // Hiển thị toast lỗi nếu có
+    const toastError = document.getElementById("toast-error");
+    if (toastError) {
+        toastError.classList.add("show");
+        setTimeout(() => {
+            toastError.classList.remove("show");
+        }, 3000);
+    }
+});
 </script>
 </head>
 <body>
@@ -163,8 +172,13 @@ body, html {
 				</div>
 			</form>
 		</div>
+		<!-- Toast thành công -->
 		<div id="toast-message" th:if="${message}" class="toast toast-success"
 			th:text="${message}"></div>
+
+		<!-- Toast lỗi -->
+		<div id="toast-error" th:if="${error}" class="toast toast-error"
+			th:text="${error}"></div>
 	</div>
 </body>
 </html>

@@ -24,5 +24,15 @@ public class OrderService {
     public List<Order> getOrdersByUsername(String username) {
         return orderRepository.findByUsername(username);
     }
+    
+    public long countOrders() {
+        return orderRepository.count();
+    }
+
+    public double calculateTotalRevenue() {
+        return orderRepository.findAll().stream()
+                .mapToDouble(order -> order.getPrice() * order.getQuantity())
+                .sum();
+    }
 }
 

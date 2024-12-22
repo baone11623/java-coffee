@@ -30,7 +30,7 @@ public class AboutController {
 			list.removeIf(menu -> "/login".equals(menu.getLink()));
 		}
 		model.addAttribute("listMenu", list);
-		model.addAttribute("active","about");
+		model.addAttribute("active","Về chúng tôi");
 		model.addAttribute("username", username);
 		
 		About about = aboutService.getAboutInfo();

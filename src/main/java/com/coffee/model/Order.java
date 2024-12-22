@@ -1,6 +1,8 @@
 package com.coffee.model;
 
+import java.beans.Transient;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,27 +13,28 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String username;
+	private String productName;
+	private int quantity;
+	private double price;
+	private LocalDateTime orderDate;
+	private String formattedDate;
 
-    private String username;
-    private String productName;
-    private int quantity;
-    private double price;
-    private LocalDateTime orderDate;
-    private String formattedDate;
+	public Order() {
+	}
 
-    public Order() {}
-
-    public Order(String username, String productName, int quantity, double price, LocalDateTime orderDate,String formattedDate) {
-        this.username = username;
-        this.productName = productName;
-        this.quantity = quantity;
-        this.price = price;
-        this.orderDate = orderDate;
-        this.formattedDate = formattedDate;
-    }
+	public Order(String username, String productName, int quantity, double price, LocalDateTime orderDate,
+			String formattedDate) {
+		this.username = username;
+		this.productName = productName;
+		this.quantity = quantity;
+		this.price = price;
+		this.orderDate = orderDate;
+		this.formattedDate = formattedDate;
+	}
 
 	public Long getId() {
 		return id;
@@ -80,12 +83,13 @@ public class Order {
 	public void setOrderDate(LocalDateTime orderDate) {
 		this.orderDate = orderDate;
 	}
+
 	public String getFormattedDate() {
-	    return formattedDate;
+		return formattedDate;
 	}
 
 	public void setFormattedDate(String formattedDate) {
-	    this.formattedDate = formattedDate;
+		this.formattedDate = formattedDate;
 	}
 
 }

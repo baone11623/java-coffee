@@ -27,7 +27,7 @@ public class TestimonialController {
 			list.removeIf(menu -> "/login".equals(menu.getLink()));
 		}
 		model.addAttribute("listMenu", list);
-		model.addAttribute("active","testimonial");
+		model.addAttribute("active","Đánh giá");
 		model.addAttribute("username", username);
 		
 		model.addAttribute("testimonials", testimonialService.getAllTestimonials());

@@ -29,6 +29,7 @@ public class AuthenController {
 		User user = userService.findByUsername(username.trim());
 		if (user != null && userService.authenticate(username, password)) {
 			session.setAttribute("currentUser", user);
+			session.setAttribute("currentUserName", username.trim());
 			if ("admin".equals(user.getRole())) {
 				return "redirect:/admin/dashboard";
 			}

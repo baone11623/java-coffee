@@ -46,12 +46,13 @@ public class AdminController {
 
 	@GetMapping("/statistics")
 	public String statistics(Model model) {
-//        model.addAttribute("totalOrders", orderService.countOrders());
-//        model.addAttribute("totalRevenue", orderService.calculateTotalRevenue());
-//        model.addAttribute("totalUsers", userService.countUsers());
-//        model.addAttribute("totalProducts", productService.countProducts());
-		model.addAttribute("content", "admin/statistics");
-		return "admin/admin_layout";
+	    model.addAttribute("totalOrders", orderService.countOrders());
+	    model.addAttribute("totalRevenue", orderService.calculateTotalRevenue());
+	    model.addAttribute("totalUsers", userService.countUsers());
+	    model.addAttribute("totalProducts", productService.countProducts());
+
+	    model.addAttribute("content", "admin/statistics");
+	    return "admin/admin_layout";
 	}
 
 	@GetMapping("/products")
@@ -85,7 +86,8 @@ public class AdminController {
 		model.addAttribute("content", "admin/product_form");
 		return "admin/admin_layout";
 	}
-
+	
+	
 	@PostMapping("/products/edit")
 	public String editProduct(@ModelAttribute Product product) {
 		productService.saveProduct(product);

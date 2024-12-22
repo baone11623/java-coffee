@@ -33,6 +33,34 @@
 <link href="css/style.css" rel="stylesheet" />
 <!-- responsive style -->
 <link href="css/responsive.css" rel="stylesheet" />
+
+<style>
+.product_section .row {
+	position: relative !important; /* Đặt vị trí tương đối cho hàng */
+}
+
+.product_section .img-box {
+	position: relative !important; /* Đảm bảo khối chứa hình ảnh không bị ảnh hưởng */
+	width: 100% !important; /* Đảm bảo khối chứa hình ảnh bao phủ đầy đủ chiều rộng */
+	height: 200px !important; /* Đặt chiều cao phù hợp cho khối chứa hình ảnh */
+	overflow: hidden !important; /* Giới hạn hình ảnh trong khối */
+	display: flex !important; /* Đặt căn chỉnh để ảnh nằm giữa */
+	justify-content: center !important;
+	align-items: center !important;
+}
+
+.product_section .img-box img {
+	position: absolute !important; /* Đặt vị trí tuyệt đối cho hình ảnh */
+	top: 50% !important; /* Căn chỉnh dọc */
+	left: 50% !important; /* Căn chỉnh ngang */
+	transform: translate(-50%, -50%) !important;
+	/* Căn chỉnh hình ảnh vào giữa khối */
+	max-width: 100% !important; /* Giới hạn chiều rộng tối đa của hình ảnh */
+	max-height: 100% !important; /* Giới hạn chiều cao tối đa của hình ảnh */
+	object-fit: cover !important; /* Đảm bảo hình ảnh vừa với khối */
+	border-radius: 8px !important; /* Bo tròn góc hình ảnh nếu cần */
+}
+</style>
 </head>
 
 <body>
@@ -154,9 +182,9 @@
 							<h1>
 								Chào mừng đến với <br> Quán cà phê của chúng tôi
 							</h1>
-							<p>Có rất nhiều biến thể của đoạn văn Lorem Ipsum
-								có sẵn, nhưng phần lớn đã bị thay đổi ở một số
-								hình thức, bằng cách tiêm chất hài hước,</p>
+							<p>Có rất nhiều biến thể của đoạn văn Lorem Ipsum có sẵn,
+								nhưng phần lớn đã bị thay đổi ở một số hình thức, bằng cách tiêm
+								chất hài hước,</p>
 							<a href="" class=""> Shop Now 
 						</div>
 					</div>
@@ -210,89 +238,54 @@
 	<section class="product_section layout_padding">
 		<div class="container">
 			<div class="heading_container">
-				<h2>Our Products</h2>
+				<h2>Sản phẩm của chúng tôi</h2>
 			</div>
 		</div>
 		<div class="product_container">
 			<div class="owl-carousel owl-theme">
-				<div class="item" style="">
+				<!-- Lặp qua các sản phẩm -->
+				<div class="item" th:each="product : ${products}">
 					<div class="box_container">
 						<div class="img-box">
-							<img src="images/p1.png" class="img1" alt="">
+							<!-- Ảnh sản phẩm -->
+							<img th:src="${product.imageUrl}" class="img1" alt="Ảnh sản phẩm" />
 						</div>
 						<div class="box">
 							<div class="detail-box">
-								<h5>Capuccino</h5>
-								<p>Có rất nhiều biến thể của đoạn văn Lorem Ipsum
-									có sẵn, nhưng trông thậm chí không đáng tin chút nào.</p>
+								<!-- Tên sản phẩm -->
+								<h5 th:text="${product.name}">Tên sản phẩm</h5>
+								<!-- Mô tả sản phẩm -->
+								<p th:text="${product.description}">Mô tả sản phẩm</p>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="item" style="">
-					<div class="box_container">
-						<div class="img-box">
-							<img src="images/p2.png" class="img1" alt="">
-						</div>
-						<div class="box ">
-							<div class="detail-box">
-								<h5>Frapuccino</h5>
-								<p>Có rất nhiều biến thể của đoạn văn Lorem Ipsum
-									có sẵn, nhưng trông thậm chí không đáng tin chút nào.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="item" style="">
-					<div class="box_container">
-						<div class="img-box">
-							<img src="images/p3.png" class="img1" alt="">
-						</div>
-						<div class="box">
-							<div class="detail-box">
-								<h5>Iced Coffee</h5>
-								<p>Tcó rất nhiều biến thể của Lorem Ipsum, nhưng có vẻ không đáng tin chút nào.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="item" style="">
-					<div class="box_container">
-						<div class="img-box">
-							<img src="images/p4.png" class="img1" alt="">
-						</div>
-						<div class="box">
-							<div class="detail-box">
-								<h5>Latte</h5>
-								<p>Có rất nhiều biến thể của đoạn văn Lorem Ipsum
-									có sẵn, nhưng trông thậm chí không đáng tin chút nào.</p>
-							</div>
-						</div>
-					</div>
-				</div>
+				<!-- Kết thúc lặp -->
 			</div>
 		</div>
 	</section>
 	<!-- end product section -->
 
 	<!-- about section -->
-	<section class="about_section ">
-		<div class="container-fluid">
+	<section class="about_section layout_padding">
+		<div class="container">
+			<div class="heading_container">
+				<h2>Về chúng tôi</h2>
+			</div>
 			<div class="row">
-				<div class="col-md-6 px-0">
-					<div class="img-box pr-md-4 pr-lg-5">
-						<img src="images/about-img.jpg" alt="" />
+				<div class="col-md-6">
+					<div class="about_image">
+						<img th:src="@{${about.banner}}" alt="Banner Image"
+							style="width: 100%; height: auto;">
 					</div>
 				</div>
-				<div class="col-md-5">
-					<div class="detail-box">
-						<div class="heading_container">
-							<h2>About Us</h2>
-						</div>
-						<p>Khách hàng rất quan trọng, khách hàng sẽ được khách hàng theo dõi,
-							nhưng vào thời điểm đó chúng xảy ra như một sự lao động và đau đớn lớn lao
-							một số Đi đến chi tiết nhỏ nhất, ai là của chúng ta?</p>
-						<a href=""> Đọc thêm </a>
+				<div class="col-md-6">
+					<div class="about_content">
+						<h3 th:text="${about.name}">Chào mừng đến với RiseCup</h3>
+						<p th:text="${about.description}">Chúng tôi đam mê mang lại
+							trải nghiệm cà phê tốt nhất...</p>
+						<p th:text="${about.mission}">Hãy tham gia cùng chúng tôi trên
+							hành trình này của khám phá...</p>
 					</div>
 				</div>
 			</div>
@@ -300,54 +293,6 @@
 	</section>
 
 	<!-- end about section -->
-
-	<!-- contact section -->
-
-	<section class="contact_section layout_padding">
-		<div class="container "></div>
-		<div class="container">
-
-			<form action="">
-				<div class="row">
-					<div class="col-lg-10 col-md-11 mx-auto">
-						<div class="heading_container">
-							<h2>Đặt cà phê</h2>
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control"
-								id="formGroupExampleInput" placeholder="Name" />
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control"
-								id="exampleFormControlInput1" placeholder="Email" />
-						</div>
-						<div class="form-group">
-							<input type="text" class="form-control"
-								id="formGroupExampleInput2" placeholder="Phone" />
-						</div>
-						<div class="form-group">
-							<select class="form-control" id="exampleFormControlSelect1">
-								<option>Select Cofee</option>
-								<option>Cappuccino</option>
-								<option>Frapuccino</option>
-								<option>Latte</option>
-								<option>Iced Coffee</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<textarea class="form-control" id="messageBox" rows="3"
-								placeholder="Instructions"></textarea>
-						</div>
-						<div class="d-flex justify-content-center">
-							<button>SEND</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</section>
-
-	<!-- end contact section -->
 
 	<!-- client section -->
 
@@ -359,64 +304,24 @@
 			<div id="carouselExample2Indicators" class="carousel slide"
 				data-ride="carousel">
 				<div class="carousel-inner">
-					<div class="carousel-item active">
+					<div th:each="testimonial, iterStat : ${testimonials}"
+						th:classappend="${iterStat.index == 0} ? 'active' : ''"
+						class="carousel-item">
 						<div class="row">
 							<div class="col-md-9 col-lg-7 mx-auto">
 								<div class="box">
 									<div class="img-box">
-										<img src="images/client.jpg" alt="">
+										<img th:src="${testimonial.imageUrl}" alt="Client Image">
 									</div>
 									<div class="detail-box">
-										<h5>Alice Adams</h5>
-										<p>Khách hàng rất quan trọng, khách hàng sẽ được tuân theo
-											nhưng tôi đồng thời cho rằng chúng xảy ra khi chuyển dạ và đau đớn
-											một số điều tuyệt vời Đi đến chi tiết nhỏ nhất, ai là của chúng ta?d</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="row">
-							<div class="col-md-9 col-lg-7 mx-auto">
-								<div class="box">
-									<div class="img-box">
-										<img src="images/client.jpg" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>Alice Adams</h5>
-										<p>Khách hàng rất quan trọng, khách hàng sẽ được tuân theo
-											nhưng tôi đồng thời cho rằng chúng xảy ra khi chuyển dạ và đau đớn
-											một số điều tuyệt vời Đi đến chi tiết nhỏ nhất, ai là của chúng ta?</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="carousel-item">
-						<div class="row">
-							<div class="col-md-9 col-lg-7 mx-auto">
-								<div class="box">
-									<div class="img-box">
-										<img src="images/client.jpg" alt="">
-									</div>
-									<div class="detail-box">
-										<h5>Alice Adams</h5>
-										<p>Khách hàng rất quan trọng, khách hàng sẽ được tuân theo
-											nhưng tôi đồng thời cho rằng chúng xảy ra khi chuyển dạ và đau đớn
-											một số điều tuyệt vời Đi đến chi tiết nhỏ nhất, ai là của chúng ta?</p>
+										<h5 th:text="${testimonial.name}">Client Name</h5>
+										<p th:text="${testimonial.review}">Client Review</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExample2Indicators" data-slide-to="0"
-						class="active"></li>
-					<li data-target="#carouselExample2Indicators" data-slide-to="1"></li>
-					<li data-target="#carouselExample2Indicators" data-slide-to="2"></li>
-				</ol>
 			</div>
 		</div>
 	</section>
@@ -452,9 +357,9 @@
 							<div class="col-md-6">
 								<div class="info_detail">
 									<h5>Dịch vụ khách hàng</h5>
-									<p>Những từ ngẫu nhiên trông không giống chút nào
-										đáng tin cậy. Nếu bạn định sử dụng một đoạn văn của Lorem Ipsum,
-										bạn cần phải chắc chắn</p>
+									<p>Những từ ngẫu nhiên trông không giống chút nào đáng tin
+										cậy. Nếu bạn định sử dụng một đoạn văn của Lorem Ipsum, bạn
+										cần phải chắc chắn</p>
 								</div>
 							</div>
 						</div>

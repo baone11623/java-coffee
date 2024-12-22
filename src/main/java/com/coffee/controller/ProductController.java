@@ -33,7 +33,7 @@ public class ProductController {
 			list.removeIf(menu -> "/login".equals(menu.getLink()));
 		}
 		model.addAttribute("listMenu", list);
-		model.addAttribute("active","product");
+		model.addAttribute("active","Sản phẩm");
 		model.addAttribute("username", username);
 		
         List<Product> products = productService.getAllProducts();

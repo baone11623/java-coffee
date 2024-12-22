@@ -62,44 +62,44 @@ button:hover {
 	padding: 20px;
 }
 
-/* Danh sách sản phẩm */
 .product-list ul {
-	list-style: none;
-	padding: 0;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cột linh hoạt */
+  gap: 20px; /* Khoảng cách giữa các sản phẩm */
 }
 
 .product-list li {
-	background-color: #C3D9DD; /* Secondary color */
-	border: 1px solid #B2C7CC;
-	border-radius: 8px;
-	width: calc(33% - 20px);
-	padding: 15px;
-	text-align: center;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s ease;
+  background-color: #C3D9DD; /* Secondary color */
+  border: 1px solid #B2C7CC;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .product-list li:hover {
-	transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .product-list img {
-	max-width: 100%;
-	border-radius: 8px;
-	margin-bottom: 10px;
+    width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng của container */
+    height: 150px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng mà vừa vặn trong khung */
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .product-list h3 {
-	font-size: 18px;
-	margin: 10px 0;
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 .product-list p {
-	font-size: 14px;
-	margin: 5px 0;
+  font-size: 14px;
+  margin: 5px 0;
 }
 
 /* Chi tiết sản phẩm */
@@ -273,7 +273,7 @@ form button {
 								<li class="nav-item" th:if="${username}"><span
 									class="nav-link" th:text="${username}"></span></li>
 								<li class="nav-item" th:if="${username}"><a
-									class="nav-link" href="/logout">Logout</a></li>
+									class="nav-link" href="/logout">đăng xuất</a></li>
 							</ul>
 						</div>
 					</div>
@@ -311,7 +311,7 @@ C3D9DD
 						Danh mục: <span th:text="${product.category}">Danh mục</span>
 					</p>
 					<div class="wrap">
-						<a th:href="@{'/product/' + ${product.id}}"><button>Chi
+						<a th:href="@{'/products/' + ${product.id}}"><button>Chi
 								tiết</button></a>
 						<form th:action="@{/cart/add}" method="post">
 							<input type="hidden" name="productId" th:value="${product.id}">
