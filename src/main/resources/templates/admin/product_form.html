@@ -1,123 +1,104 @@
-<html>
-<style>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chỉnh sửa Người Dùng</title>
+    <style>
+        /* Định nghĩa màu chủ đạo */
+        :root {
+            --primary1: #e8f0ee;
+            --btnColor: #356e7f;
+        }
 
-/* Định nghĩa màu chủ đạo */
-:root {
-    --primary1: #e8f0ee;
-    --btnColor: #356e7f;
-}
+        section {
+            background-color: var(--primary1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-section {
-    background-color: var(--primary1);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-}
+        h1 {
+            text-align: center;
+            color: var(--btnColor);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-h1 {
-    text-align: center;
-    color: var(--btnColor);
-    font-size: 24px;
-    margin-bottom: 20px;
-}
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+        form div {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Khoảng cách giữa label và input */
+        }
 
-form div {
-    display: flex;
-    align-items: center; /* Căn giữa theo chiều dọc */
-    gap: 10px; /* Khoảng cách giữa label và input */
-}
+        label {
+            font-size: 16px;
+            color: #333;
+            width: 120px;
+            text-align: right;
+        }
 
-label {
-    font-size: 16px;
-    color: #333;
-    width: 120px; /* Đặt độ rộng cố định để các label thẳng hàng */
-    text-align: right;
-}
+        input[type="text"],
+        select {
+            flex: 1; /* Mở rộng input để chiếm phần còn lại của hàng */
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
 
-input[type="text"],
-input[type="number"],
-input[type="url"],
-textarea {
-    flex: 1; /* Mở rộng input để chiếm phần còn lại của hàng */
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    background-color: #fff;
-    transition: border-color 0.3s ease;
-}
+        input[type="text"]:focus,
+        select:focus {
+            border-color: var(--btnColor);
+        }
 
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="url"]:focus,
-textarea:focus {
-    border-color: var(--btnColor);
-}
+        button {
+            background-color: var(--btnColor);
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
 
-textarea {
-    resize: vertical;
-    min-height: 100px;
-}
+        button:hover {
+            background-color: #2b4f5a;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1 th:text="${user.id != null ? 'Chỉnh sửa Người Dùng' : 'Thêm Người Dùng'}"></h1>
+        <form th:action="@{/admin/users/edit}" method="post">
+            <input type="hidden" name="id" th:value="${user.id}" />
 
-button {
-    background-color: var(--btnColor);
-    color: #fff;
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
+            <div>
+                <label for="username">Tên Đăng Nhập:</label>
+                <input type="text" id="username" name="username" th:value="${user.username}" required />
+            </div>
 
-button:hover {
-    background-color: #2b4f5a;
-}
-</style>
-<section>
-    <h1 th:text="${product.id != null ? 'Sửa Sản phẩm' : 'Thêm Sản phẩm'}"></h1>
-     
-    <form th:action="@{${product.id != null ? '/admin/products/edit' : '/admin/products/add'}}" method="post" th:object="${product}">
-        <input type="hidden" th:field="*{id}" />
-        
-        <div>
-            <label for="name">Tên Sản phẩm:</label>
-            <input type="text" id="name" th:field="*{name}" required />
-        </div>
+            <div>
+                <label for="role">Vai Trò:</label>
+                <select id="role" name="role" required>
+                    <option value="admin" th:selected="${user.role == 'admin'}">Admin</option>
+                    <option value="user" th:selected="${user.role == 'user'}">User</option>
+                </select>
+            </div>
 
-        <div>
-            <label for="description">Mô tả:</label>
-            <textarea id="description" th:field="*{description}" required></textarea>
-        </div>
-
-        <div>
-            <label for="price">Giá:</label>
-            <input type="number" id="price" th:field="*{price}" step="0.01" required />
-        </div>
-
-        <div>
-            <label for="category">Danh mục:</label>
-            <input type="text" id="category" th:field="*{category}" required />
-        </div>
-
-        <div>
-            <label for="imageUrl">URL Ảnh:</label>
-            <input type="url" id="imageUrl" th:field="*{imageUrl}" required />
-        </div>
-
-        <button type="submit" class="btn btn-success">Lưu</button>
-    </form>
-</section>
-
+            <button type="submit">Lưu</button>
+        </form>
+    </section>
+</body>
 </html>
-
