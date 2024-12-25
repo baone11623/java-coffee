@@ -46,4 +46,33 @@ public class AuthenController {
 		redirectAttributes.addFlashAttribute("message", "Bạn đã đăng xuất thành công!");
 		return "redirect:/login";
 	}
+	
+	@GetMapping("/register")
+	public String register() {
+	    return "register"; 
+	}
+
+	@PostMapping("/register")
+	public String handleRegister(
+	        @RequestParam String username,
+	        @RequestParam String password,
+	        @RequestParam String role,
+	        RedirectAttributes redirectAttributes) {
+
+	    if (userService.findByUsername(username.trim()) != null) {
+	        redirectAttributes.addFlashAttribute("error", "Tên tài khoản đã tồn tại!");
+	        return "redirect:/register";
+	    }
+
+	    User newUser = new User();
+	    newUser.setUsername(username.trim());
+	    newUser.setPassword(password.trim()); 
+	    newUser.setRole(role.trim()); 
+
+	    userService.save(newUser);
+
+	    redirectAttributes.addFlashAttribute("success", "Tài khoản đã được thêm thành công!");
+	    return "redirect:/login"; // Chuyển hướng về trang đăng nhập sau khi đăng ký
+	}
+
 }
